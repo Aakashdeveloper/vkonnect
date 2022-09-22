@@ -140,11 +140,14 @@ app.put('/updateUser',(req,res) => {
 app.delete('/deleteUser',(req,res) => {
     let key = req.query.token
     if(auth(key)){
-    let _id = mongo.ObjectId(req.body._id);
-    db.collection(col_name).remove({_id},(err,result) => {
-        if(err) throw err;
-        res.status(200).send('User Deleted')
-    })
+        let _id = mongo.ObjectId(req.body._id);
+        db.collection(col_name).remove({_id},(err,result) => {
+            if(err) throw err;
+            res.status(200).send('User Deleted')
+        })
+   }else{
+        res.send('Unauthenticated Requested')
+   }
 })
 
 //soft delete
